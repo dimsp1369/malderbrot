@@ -59,8 +59,8 @@ void ComplexPlane::updateRender() {
     if (m_state == State::CALCULATING) {
         int width = m_pixel_size.x;
         int height = m_pixel_size.y;
-        for (int j = 0; j < height; j++) {
-            for (int i = 0; i < width; i++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 m_vArray[j + i * width].position = {(float)j, (float)i};
                 Vector2f coords = mapPixelToCoords({(float)j, (float)i});
                 int numOfIteration = coutIterations(coords);
