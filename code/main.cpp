@@ -33,14 +33,15 @@ int main() {
 
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) window.close();
-            // **** LEFT CLICK ZOOM OUT ****
+            // **** RIGHT CLICK ZOOM OUT ****
             if (event.type == Event::MouseButtonPressed) {
-                if (event.mouseButton.button == Mouse::Left) {
-                    cout << "the left button was pressed\n";
+                if (event.mouseButton.button == Mouse::Right) {
+                    cout << "the right button was pressed\n";
                     cout << "mouse x: " << event.mouseButton.x << endl;
                     cout << "mouse y: " << event.mouseButton.y << endl;
 
                     // Call zoomOut
+                    complexPlane.zoomOut();
                     // Call setCenter
                     complexPlane.setCenter({(float)event.mouseButton.x, (float)event.mouseButton.y});
 
@@ -48,14 +49,15 @@ int main() {
 
                 }
             }
-            // **** RIGHT CLICK ZOOM IN ****
+            // **** LEFT CLICK ZOOM IN ****
             if (event.type == Event::MouseButtonPressed) {
-                if (event.mouseButton.button == Mouse::Right) {
-                    cout << "the right button was pressed\n";
+                if (event.mouseButton.button == Mouse::Left) {
+                    cout << "the left button was pressed\n";
                     cout << "mouse x: " << event.mouseButton.x << endl;
                     cout << "mouse y: " << event.mouseButton.y << endl;
 
                     // Call zoomIn
+                    complexPlane.zoomIn();
                     // Call setCenter
                     complexPlane.setCenter({(float)event.mouseButton.x, (float)event.mouseButton.y});
 
