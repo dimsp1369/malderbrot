@@ -75,12 +75,49 @@ void ComplexPlane::updateRender() {
     }
 }
 
-int ComplexPlane::coutIterations(Vector2f coord) {
-    return 1;
+size_t ComplexPlane::coutIterations(Vector2f coord) {
+     complex<float> c(coord.x, coord.y);
+    complex<float> z(0, 0);
+    size_t iterations = 0;
+
+    while (abs(z) <= 2.0 && iterations < MAX_ITER) {
+        z = z * z + c;
+        ++iterations;
+    }
+
+    return iterations;
 }
-void ComplexPlane::iterationToRGB(size_t cout, Uint8& r, Uint8& g, Uint8& b) {}
+
+void ComplexPlane::iterationToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) {
+    const size_t MAX_ITER = 255;
+    if (count >= MAX_ITER) {
+        r = g = b = 0; // Black color
+    } else {
+        size_t region = count / (MAX_ITER / 5); // Divide into 5 regions
+        switch (region) {
+            case 0: // Purple / Blue
+                r = 0; g = 0; b = count;
+                break;
+            case 1: // Turquoise
+                r = 0; g = count; b = count;
+                break;
+            case 2: // Green
+                r = 0; g = count; b = 0;
+                break;
+            case 3: // Yellow
+                r = count; g = count; b = 0;
+                break;
+            case 4: // Red
+                r = count; g = 0; b = 0;
+                break;
+        }
+    }
+}
+
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2f mousePixel) {
-    Vector2f v(mousePixel.x, mousePixel.y);
-    return v;
+    Vector2f coords;
+    coords.x = ((mousePixel.x - 0.f) / (m_pixel_size.x - 0.f)) * (m_plane_size.x - -m_plane_size.x) + (m_plane_center.x - m_plane_size.x / 2.0);
+    coords.y = ((mousePixel.y - m_pixel_size.y) / (0.f - m_pixel_size.y)) * (m_plane_size.y - -m_plane_size.y) + (m_plane_center.y - m_plane_size.y / 2.0);
+    return coords;
 }

@@ -33,7 +33,7 @@ class ComplexPlane : public Drawable {
         int m_zoomCount;
         float m_aspectRatio;
 
-        int coutIterations(Vector2f coord);
+        size_t coutIterations(Vector2f coord);
         void iterationToRGB(size_t cout, Uint8& r, Uint8& g, Uint8& b);
         Vector2f mapPixelToCoords(Vector2f mousePixel);
 };
